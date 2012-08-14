@@ -6,8 +6,21 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
-  def index
+  def sort_by_title
     @movies = Movie.all
+  end
+
+  def index
+    debugger
+    @movies = Movie.all
+    p @movies
+    if (params[:query])
+      if (params[:query] = "title")
+        p "hello yes"
+        @movies = @movies.sort_by!{ |m| m.title }
+      end
+    end
+
   end
 
   def new
