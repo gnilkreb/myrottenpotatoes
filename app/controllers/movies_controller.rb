@@ -11,17 +11,14 @@ class MoviesController < ApplicationController
   end
 
   def index
-    debugger
     @movies = Movie.all
     params[:sortedby] = ""
     if (params[:query])
-      if (params[:query] = "title")
-        p "hello title"
+      if (params[:query] == "title")
         @movies = @movies.sort_by!{ |m| m.title }
         params[:sortedby] = "title"
       end
-      if (params[:query] = "date")
-        p "hello date"
+      if (params[:query] == "date")
         @movies = @movies.sort_by!{ |m| m.release_date }
         params[:sortedby] = "date"
       end
