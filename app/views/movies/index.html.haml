@@ -1,12 +1,12 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
-
+"#{params[:sortedby]}"
 %table#movies
   %thead
     %tr 
-      %th= link_to "Movie Title", { :controller => "movies" , :action => "index",  :query => "title"} , :id => "title_header"
+      %th{ :class => ("title" == params[:sortedby]) ? 'hilite' : "" }= link_to "Movie Title", { :controller => "movies" , :action => "index",  :query => "title"} , :id => "title_header"
       %th Rating
-      %th= link_to "Release Date", { :controller => "movies" , :action => "index",  :query => "title"} , :id => "release_date_header"
+      %th{ :class => ("date" == params[:sortedby]) ? 'hilite' : ""}= link_to "Release Date", { :controller => "movies" , :action => "index",  :query => "date"} , :id => "release_date_header"
       %th More Info
   %tbody
     - @movies.each do |movie|
@@ -17,3 +17,7 @@
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
+
+
+
+
