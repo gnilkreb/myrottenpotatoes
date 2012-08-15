@@ -15,13 +15,13 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.select(:rating).map(&:rating).uniq
     params[:all_ratings] = @all_ratings
     @r = params[:remR1]? params[:remR1] : []
-    @remR1 = @r
+
     if params[:ratings]
 #      flash[:notice] = "#{params[:ratings].keys}"
       @r = params[:ratings].keys
 #      flash[:notice] = "#{@r}"
     end
-
+    @remR1 = @r
     @movies = Movie.where( :rating => @r )
 
     params[:sortedby] = ""
