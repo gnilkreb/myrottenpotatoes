@@ -11,7 +11,22 @@ class MoviesController < ApplicationController
   end
 
   def index
+
+    @all_ratings = Movie.select(:rating).map(&:rating).uniq
+    params[:all_ratings] = @all_ratings
+
+    if params[:ratings]
+      flash[:notice] = "#{params[:ratings].keys}"
+      @r = params[:ratings].keys
+      flash[:notice] = "#{@r}"
+    else
+      @r = @all_ratings
+    end
+
     @movies = Movie.all
+    @movies = Movie.where( :rating => @r )
+
+
     params[:sortedby] = ""
     if (params[:query])
       if (params[:query] == "title")

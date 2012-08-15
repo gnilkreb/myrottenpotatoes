@@ -1,6 +1,17 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
 
+"#{@all_ratings}"
+
+= form_tag movies_path, :method => :get do
+  Include:
+  - @all_ratings.each do |rating|
+    = rating
+    = check_box_tag "ratings[#{rating}]"
+    = submit_tag 'Refresh'
+
+
+
 %table#movies
   %thead
     %tr 
@@ -17,7 +28,6 @@
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
-
 
 
 
