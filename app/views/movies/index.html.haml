@@ -1,18 +1,19 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
 
-"#{@all_ratings}"
-"#{params[:sortedby]}"
-"R2 #{@remR2}"
-"R2_G #{@remR2["G"]}"
-"R1 #{@remR1}"
+
+<!-- "#{@all_ratings}" -->
+<!-- "#{params[:sortedby]}" -->
+<!-- "R2 #{@remR2}" -->
+<!-- "R2_G #{@remR2["G"]}" -->
+<!-- "R1 #{@remR1}" -->
 
 = form_tag movies_path, :method => :get do 
   Include:
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]" , 'yes', @remR2[rating]
-    = submit_tag 'Refresh'
+    = check_box_tag "ratings[#{rating}]" , 'yes', @remR2[rating] , :id => "ratings_#{rating}"
+    = submit_tag 'Refresh', :id => "ratings_submit"
 
 
 %table#movies

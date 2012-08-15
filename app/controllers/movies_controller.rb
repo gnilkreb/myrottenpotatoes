@@ -17,9 +17,9 @@ class MoviesController < ApplicationController
     @r = params[:remR1]? params[:remR1] : []
     @remR1 = @r
     if params[:ratings]
-      flash[:notice] = "#{params[:ratings].keys}"
+#      flash[:notice] = "#{params[:ratings].keys}"
       @r = params[:ratings].keys
-      flash[:notice] = "#{@r}"
+#      flash[:notice] = "#{@r}"
     end
 
     @movies = Movie.where( :rating => @r )
