@@ -2,22 +2,25 @@
 %h1 All Movies
 
 "#{@all_ratings}"
+"#{params[:sortedby]}"
+"R2 #{@remR2}"
+"R2_G #{@remR2["G"]}"
+"R1 #{@remR1}"
 
-= form_tag movies_path, :method => :get do
+= form_tag movies_path, :method => :get do 
   Include:
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]"
+    = check_box_tag "ratings[#{rating}]" , 'yes', @remR2[rating]
     = submit_tag 'Refresh'
-
 
 
 %table#movies
   %thead
     %tr 
-      %th{ :class => ("title" == params[:sortedby]) ? 'hilite' : "" }= link_to "Movie Title", { :controller => "movies" , :action => "index",  :query => "title"} , :id => "title_header"
+      %th{ :class => ("title" == params[:sortedby]) ? 'hilite' : "" }= link_to "Movie Title", { :controller => "movies" , :action => "index",  :query => "title", :remR1 => @remR1 }, :id => "title_header"
       %th Rating
-      %th{ :class => ("date" == params[:sortedby]) ? 'hilite' : ""}= link_to "Release Date", { :controller => "movies" , :action => "index",  :query => "date"} , :id => "release_date_header"
+      %th{ :class => ("date" == params[:sortedby]) ? 'hilite' : ""}= link_to "Release Date", { :controller => "movies" , :action => "index",  :query => "date" , :remR1 => @remR1} , :id => "release_date_header"
       %th More Info
   %tbody
     - @movies.each do |movie|

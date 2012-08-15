@@ -14,18 +14,15 @@ class MoviesController < ApplicationController
 
     @all_ratings = Movie.select(:rating).map(&:rating).uniq
     params[:all_ratings] = @all_ratings
-
+    @r = params[:remR1]? params[:remR1] : []
+    @remR1 = @r
     if params[:ratings]
       flash[:notice] = "#{params[:ratings].keys}"
       @r = params[:ratings].keys
       flash[:notice] = "#{@r}"
-    else
-      @r = @all_ratings
     end
 
-    @movies = Movie.all
     @movies = Movie.where( :rating => @r )
-
 
     params[:sortedby] = ""
     if (params[:query])
@@ -38,6 +35,12 @@ class MoviesController < ApplicationController
         params[:sortedby] = "date"
       end
     end
+
+    @remR2 = Hash.new
+    @all_ratings.each {  |r|
+      @remR2[r] = @r.include?(r)?  true : false
+    }
+    params[:remR2] = @remR2
 
   end
 
